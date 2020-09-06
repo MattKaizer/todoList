@@ -9,7 +9,7 @@ const FormTask = () => {
   const { project } = projectContext;
 
   const taskContext = useContext(TaskContext);
-  const { taskError, addTask, validateTask } = taskContext;
+  const { taskError, addTask, validateTask, getTasksList } = taskContext;
 
   //Form state
   const [task, setTask] = useState({
@@ -33,20 +33,24 @@ const FormTask = () => {
 
   const onSubmitHandler = e => {
     e.preventDefault();
+
     //validate
-    // if(taskName.trim() === '') {
-    //     validateTask();
-    //     return;
-    // }
+    if(taskName.trim() === '') {
+        validateTask();
+        return;
+    }
     
     task.projectId = currentProject.id;
     task.taskState = false
     addTask(task);
 
+    //get current project taks's
+    getTasksList(currentProject.id);
+
     //reset form
-    // setTask({
-    //     taskName: ''
-    // })
+    setTask({
+        taskName: ''
+    })
 
   };
 
@@ -60,7 +64,8 @@ const FormTask = () => {
             type="text"
             className="input-text"
             placeholder="Nombre Tarea..."
-            name={taskName}
+            name="taskName"
+            value={taskName}
             onChange={handleChange}
           />
         </div>
@@ -72,7 +77,7 @@ const FormTask = () => {
           />
         </div>
       </form>
-      {/* {taskError ? <p className="mensaje error">EL nombre de la tarea es obligatorio</p> : null} */}
+      {taskError ? <p className="mensaje error">EL nombre de la tarea es obligatorio</p> : null}
     </div>
   );
 };
