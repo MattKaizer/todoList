@@ -1,5 +1,5 @@
 
-import { PROJECT_TASKS, ADD_TASK, ERROR_TASK } from '../../types'
+import { PROJECT_TASKS, ADD_TASK, ERROR_TASK, DELETE_TASK } from '../../types'
 
 export default (state, action) => {
     switch (action.type) {
@@ -18,6 +18,11 @@ export default (state, action) => {
                 return {
                     ...state,
                     taskError: true
+            }
+            case DELETE_TASK:
+                return {
+                    ...state,
+                    taskList: state.taskList.filter( task => task.id !== action.payload)
             }
         default:
             return state;
