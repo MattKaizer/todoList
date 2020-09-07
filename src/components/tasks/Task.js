@@ -11,12 +11,22 @@ const Task = ({task}) => {
     const { project } = projectContext;
 
     const taskContext = useContext(TaskContext);
-    const { deleteTask, getTasksList } = taskContext;
+    const { deleteTask, getTasksList, changeTaskState } = taskContext;
 
     //delete fn
     const deleteHanlder = id => {
         deleteTask(id);
         getTasksList(project[0].id);
+    }
+
+    //FN change task state
+    const changeState = task => {
+        if (task.taskState) {
+            task.taskState = false
+        } else {
+            task.taskState = true
+        }
+        changeTaskState(task);
     }
 
     return ( 
@@ -28,6 +38,7 @@ const Task = ({task}) => {
                         <button 
                         type="button"
                         className="completo"
+                        onClick={() => changeState(task)}
                         >
                         Completo
                         </button>
@@ -37,6 +48,7 @@ const Task = ({task}) => {
                         <button 
                         type="button"
                         className="incompleto"
+                        onClick={() => changeState(task)}
                         >
                         Incompleto
                         </button>
