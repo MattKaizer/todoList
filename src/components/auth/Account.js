@@ -2,12 +2,15 @@ import React, { useContext, useState,  } from 'react';
 import { Link } from 'react-router-dom';
 
 import AlertContext from '../../context/alerts/AlertContext';
+import AuthContext from '../../context/authentication/AuthContext';
 
 const Account = () => {
 
     // get values from context
     const alertContext = useContext(AlertContext);
     const { alert, showAlert } = alertContext
+    const authContext = useContext(AuthContext);
+    const { newRegisterUser } = authContext;
 
     //State for login
     const [user, setUser] = useState({
@@ -45,13 +48,17 @@ const Account = () => {
             showAlert('El password debe contener, al menos, un caracter numérico, una letra mayúscula y 6 minúsculas.', 'alert-error');
             return;
         }
-        
+
         if (password.localeCompare(confirmedpassword) !== 0 ) {
             showAlert('Las contraseñas no coinciden.', 'alert-error');
             return;            
         }
         // Pass to action
-        // iniciarSesion({ email, password });
+        newRegisterUser({
+            fullname,
+            email,
+            password
+        });
     }
 
     return ( 
