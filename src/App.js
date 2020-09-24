@@ -7,18 +7,21 @@ import ProjectState from './context/projects/ProjectState';
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import TaskState from './context/task/TaskState';
+import AlertState from './context/alerts/AlertState';
 
 function App() {
   return (
     <ProjectState>
       <TaskState>
-        <Router>
-          <Switch>
-            <Route exact path="/" component={Login} />
-            <Route exact path="/new-account" component={Account} />
-            <Route exact path="/projects" component={Projects} />
-          </Switch>
-      </Router>
+        <AlertState>
+          <Router>
+            <Switch>
+              <Route exact path="/" component={Login} />
+              <Route exact path="/new-account" component={Account} />
+              <Route exact path="/projects" component={Projects} />
+            </Switch>
+        </Router>
+        </AlertState>
       </TaskState>
     </ProjectState>
   );

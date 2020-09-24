@@ -1,7 +1,13 @@
-import React, { useState,  } from 'react';
+import React, { useContext, useState,  } from 'react';
 import { Link } from 'react-router-dom';
 
+import AlertContext from '../../context/alerts/AlertContext';
+
 const Account = () => {
+
+    // get values from context
+    const alertContext = useContext(AlertContext);
+    const { alert, showAlert } = alertContext
 
     //State for login
     const [user, setUser] = useState({
@@ -26,7 +32,7 @@ const Account = () => {
 
         // Validate fields
         if(email.trim() === '' || password.trim() === '' || fullname.trim() === '' || confirmedpassword.trim() === '') {
-            // mostrarAlerta('Todos los campos son obligatorios', 'alerta-error');
+            showAlert('Todos los campos son obligatorios', 'alert-error');
         }
          //validate password
 
@@ -37,6 +43,8 @@ const Account = () => {
 
     return ( 
         <div className="form-user">
+            {/* category return like class toggle */}
+            {alert ? (<div className={`alert ${alert.category}`}>{alert.msg}</div>) : null}
             <div className="container-form shadow-dark">
                 <h1>Iniciar Sesión</h1>
                 <form
