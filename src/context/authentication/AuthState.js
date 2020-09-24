@@ -43,7 +43,7 @@ const AuthState = props => {
     const authenticatedUser = async () => {
         const token = localStorage.getItem('token');
         if (token) {
-            // TODO: fn to send token to headers
+            // TODO: fn to send token to headers as x-auth-token
         }
     
         try {
