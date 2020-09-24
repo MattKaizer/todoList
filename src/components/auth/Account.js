@@ -1,26 +1,36 @@
-import React, { useContext, useState,  } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import AlertContext from '../../context/alerts/AlertContext';
 import AuthContext from '../../context/authentication/AuthContext';
 
-const Account = () => {
+const Account = (props) => {
 
     // get values from context
     const alertContext = useContext(AlertContext);
     const { alert, showAlert } = alertContext
     const authContext = useContext(AuthContext);
-    const { newRegisterUser } = authContext;
+    const { message, authenticated, newRegisterUser } = authContext;
+
+    // in case user is already registered
+    useEffect(() => {
+        if (authenticated) {
+            props.history.push('/projects') 
+        }
+        if (message) {
+            showAlert(message.msg, message.category);
+        }
+    }, [message, authenticated, props.history])
 
     //State for login
     const [user, setUser] = useState({
-        fullname: '',
+        name: '',
         email: '',
         password: '',
         confirmedpassword: ''
     })
     //Distructuring
-    const { fullname, email, password, confirmedpassword } = user;
+    const { name, email, password, confirmedpassword } = user;
 
     const onChange = e => {
         setUser({
@@ -34,7 +44,7 @@ const Account = () => {
         e.preventDefault();
 
         // Validate fields
-        if(email.trim() === '' || password.trim() === '' || fullname.trim() === '' || confirmedpassword.trim() === '') {
+        if(email.trim() === '' || password.trim() === '' || name.trim() === '' || confirmedpassword.trim() === '') {
             showAlert('Todos los campos son obligatorios', 'alert-error');
             return;
         }
@@ -55,10 +65,10 @@ const Account = () => {
         }
         // Pass to action
         newRegisterUser({
-            fullname,
+            name,
             email,
             password
-        });
+        })
     }
 
     return ( 
@@ -71,13 +81,13 @@ const Account = () => {
                     onSubmit={onSubmit}
                 >
                 <div className="field-form">
-                        <label htmlFor="fullname">Nombre</label>
+                        <label htmlFor="name">Nombre</label>
                         <input 
                             type="text"
-                            id="fullname"
-                            name="fullname"
+                            id="name"
+                            name="name"
                             placeholder="Tu nombre completo"
-                            value={fullname}
+                            value={name}
                             onChange={onChange}
                         />
                     </div>
