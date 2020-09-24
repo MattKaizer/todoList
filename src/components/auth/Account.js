@@ -45,6 +45,7 @@ const Account = () => {
             showAlert('El password debe contener, al menos, un caracter numérico, una letra mayúscula y 6 minúsculas.', 'alert-error');
             return;
         }
+        
         if (password.localeCompare(confirmedpassword) !== 0 ) {
             showAlert('Las contraseñas no coinciden.', 'alert-error');
             return;            
