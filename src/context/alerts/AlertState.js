@@ -27,7 +27,7 @@ const AlertState = props => {
         dispatch({
             type: HIDE_ALERT
         })
-    }, 5000);
+    }, 7000);
 
     return ( 
         <AlertContext.Provider

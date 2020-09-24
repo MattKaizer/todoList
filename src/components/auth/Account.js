@@ -33,10 +33,22 @@ const Account = () => {
         // Validate fields
         if(email.trim() === '' || password.trim() === '' || fullname.trim() === '' || confirmedpassword.trim() === '') {
             showAlert('Todos los campos son obligatorios', 'alert-error');
+            return;
         }
-         //validate password
-
-
+        //validate password
+        if (password.length < 8 ) {
+            showAlert('El password debe tener al menos 8 caracteres.', 'alert-error');
+            return;
+        }
+        
+        if (!password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/, 'i') && password.length >= 8) {
+            showAlert('El password debe contener, al menos, un caracter numérico, una letra mayúscula y 6 minúsculas.', 'alert-error');
+            return;
+        }
+        if (password.localeCompare(confirmedpassword) !== 0 ) {
+            showAlert('Las contraseñas no coinciden.', 'alert-error');
+            return;            
+        }
         // Pass to action
         // iniciarSesion({ email, password });
     }
@@ -90,7 +102,7 @@ const Account = () => {
                             id="confirmedpassword"
                             name="confirmedpassword"
                             placeholder="Repite tu Password"
-                            value={password}
+                            value={confirmedpassword}
                             onChange={onChange}
                         />
                     </div>
