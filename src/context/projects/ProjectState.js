@@ -7,12 +7,12 @@ import { PROJECT_FORM, GET_PROJECTS, ADD_PROJECT, SHOW_ERROR, CURRENT_PROJECT, R
 import axiosClient from '../../config/axios';
 
 const ProjectState = props => {
-    const projectList = [
-        {id: 1, projectName: 'Ecommerce'},
-        {id:2, projectName: 'Intranet'},
-        {id: 3, projectName: 'Web Design'},
-        {id: 4, projectName: 'Docker'}
-    ]
+    // const projectList = [
+    //     {id: 1, projectName: 'Ecommerce'},
+    //     {id:2, projectName: 'Intranet'},
+    //     {id: 3, projectName: 'Web Design'},
+    //     {id: 4, projectName: 'Docker'}
+    // ]
     const initialState = {
         //Provisional List
         projectList: [],
@@ -33,11 +33,16 @@ const ProjectState = props => {
     }
 
     //get Projects
-    const getProjectList = () => {
-        dispatch({
-            type: GET_PROJECTS,
-            payload: projectList
-        })
+    const getProjectList = async () => {
+        const res = await axiosClient.get('/api/projects');
+        try {
+            dispatch({
+                type: GET_PROJECTS,
+                payload: res.data.projects
+            })
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     //select project
@@ -53,12 +58,11 @@ const ProjectState = props => {
         //ADD ID WHEN RECEIVE OBJECT FROM NEWPROJECT & THEN ADD THE PROJECT
         // project.id = uuidv4;
         try {
-            console.log(project);
             const res = await axiosClient.post('/api/projects', project);
             // console.log(res);
             dispatch({
                 type: ADD_PROJECT,
-                payload: res.data
+                payload: res.data.project
             })
         } catch (error) {
             console.log(error);
