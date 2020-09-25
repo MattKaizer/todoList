@@ -51,7 +51,7 @@ const AuthState = props => {
     
         try {
             const res = await axiosClient.get('/api/auth');
-            console.log(res.data.user);
+            // console.log(res.data.user);
             dispatch({
                 type: GET_USER,
                 payload: res.data.user
@@ -75,7 +75,7 @@ const AuthState = props => {
             // get user when authenticated
             authenticatedUser();
         } catch (error) {
-            console.log(error.response.data.msg);
+            // console.log(error.response.data.msg);
             const alert = {
                 msg: error.response.data.msg,
                 category: 'alert-error'
@@ -85,6 +85,13 @@ const AuthState = props => {
                 payload: alert
             })            
         }
+    }
+
+    // logout
+    const logout = () => {
+        dispatch({
+            type: CLOSE_SESSION
+        });
     }
     
     return ( 
@@ -96,7 +103,8 @@ const AuthState = props => {
                 message: state.message,
                 newRegisterUser,
                 authenticatedUser,
-                initSession
+                initSession,
+                logout
             }}
         >
             {props.children}

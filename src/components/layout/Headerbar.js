@@ -6,7 +6,7 @@ import AuthContext from '../../context/authentication/AuthContext';
 const HeaderBar = () => {
     // get auth info
     const authContext = useContext(AuthContext);
-    const { user, authenticatedUser } = authContext;
+    const { user, authenticatedUser, logout } = authContext;
 
     useEffect(() => {
         authenticatedUser();
@@ -18,7 +18,10 @@ const HeaderBar = () => {
             {user ? <p className="nombre-usuario"><span>Hola { (user.name).charAt(0).toUpperCase() + (user.name).slice(1) }</span></p> : null}
 
             <nav className="nav-principal">
-                <a href="#!">Cerrar Sesión</a>
+                {/* <a href="#!">Cerrar Sesión</a> */}
+                <button className="btn btn-blank cerrar-sesion"
+                    onClick={() => logout()}
+                >Cerrar Sesión</button>
             </nav>
         </header>
      );
