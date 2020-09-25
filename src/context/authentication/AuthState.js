@@ -4,6 +4,7 @@ import AuthReducer from './AuthReducer';
 import axiosClient from '../../config/axios';
 
 import { SUCESS_REGISTER, ERROR_REGISTER, GET_USER, SUCESS_LOGIN, ERROR_LOGIN, CLOSE_SESSION } from "../../types";
+import tokenAuth from '../../config/tokenAuth';
 
 const AuthState = props => {
     const initialState = {
@@ -16,6 +17,7 @@ const AuthState = props => {
     const [state, dispatch] = useReducer(AuthReducer, initialState);
 
     // fn's
+    // user registration
     const newRegisterUser = async data => {
         try {
             const res = await axiosClient.post('/api/users', data);
@@ -44,17 +46,25 @@ const AuthState = props => {
         const token = localStorage.getItem('token');
         if (token) {
             // TODO: fn to send token to headers as x-auth-token
+            tokenAuth(token);
         }
     
         try {
             const res = await axiosClient.get('/api/auth');
-            console.log(res);
+            // console.log(res);
+            dispatch({
+                type: GET_USER,
+                payload: res.data
+            });
         } catch (error) {
             dispatch({
                 type: ERROR_LOGIN
             })
         }
     }
+
+    // user login
+    
     
     return ( 
         <AuthContext.Provider
