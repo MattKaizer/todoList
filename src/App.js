@@ -9,9 +9,16 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import TaskState from './context/task/TaskState';
 import AlertState from './context/alerts/AlertState';
 import AuthState from './context/authentication/AuthState';
+import tokenAuth from './config/tokenAuth';
+
+// check if token exist
+const token = localStorage.getItem('token');
+if (token) {
+  tokenAuth(token);
+}
 
 function App() {
-  console.log(process.env.REACT_APP_BACKEND_URL);
+  // console.log(process.env.REACT_APP_BACKEND_URL);
   return (
     <ProjectState>
       <TaskState>

@@ -1,7 +1,25 @@
-import React, { useState,  } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-const Login = () => {
+import AlertContext from '../../context/alerts/AlertContext';
+import AuthContext from '../../context/authentication/AuthContext';
+
+const Login = props => {
+
+        // get values from context
+        const alertContext = useContext(AlertContext);
+        const { alert, showAlert } = alertContext
+        const authContext = useContext(AuthContext);
+        const { message, authenticated, initSession } = authContext;
+        //if user  or password not exist
+        useEffect(() => {
+            if (authenticated) {
+                props.history.push('/projects') 
+            }
+            if (message) {
+                showAlert(message.msg, message.category);
+            }
+        }, [message, authenticated, props.history])
 
     //State for login
     const [user, setUser] = useState({
@@ -24,15 +42,17 @@ const Login = () => {
 
         // Validate
         if(email.trim() === '' || password.trim() === '') {
-            // mostrarAlerta('Todos los campos son obligatorios', 'alerta-error');
+            showAlert('Todos los campos son obligatorios', 'alert-error');
         }
 
         // Pass to action
-        // iniciarSesion({ email, password });
+        initSession({ email, password });
     }
 
     return ( 
         <div className="form-user">
+            {/* category return like class toggle */}
+            {alert ? (<div className={`alert ${alert.category}`}>{alert.msg}</div>) : null}
             <div className="container-form shadow-dark">
                 <h1>Iniciar Sesión</h1>
                 <form
