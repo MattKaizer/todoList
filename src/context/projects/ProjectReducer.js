@@ -1,4 +1,4 @@
-import { PROJECT_FORM, GET_PROJECTS, ADD_PROJECT, SHOW_ERROR, CURRENT_PROJECT, REMOVE_PROJECT } from '../../types';
+import { PROJECT_FORM, GET_PROJECTS, ADD_PROJECT, SHOW_ERROR, CURRENT_PROJECT, REMOVE_PROJECT, ERROR_PROJECT } from '../../types';
 
 export default (state, action) => {
     switch(action.type) {
@@ -27,13 +27,18 @@ export default (state, action) => {
         case CURRENT_PROJECT:
             return {
                 ...state,
-                project: state.projectList.filter(project => project.id  === action.payload)
+                project: state.projectList.filter(project => project._id  === action.payload)
             }
         case REMOVE_PROJECT:
             return {
                 ...state,
-                projectList: state.projectList.filter(project => project.id  !== action.payload),
+                projectList: state.projectList.filter(project => project._id  !== action.payload),
                 project: null
+            }
+        case ERROR_PROJECT:
+            return {
+                ...state,
+                message: action.payload 
             }
         default:
             return state;

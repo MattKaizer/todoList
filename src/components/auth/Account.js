@@ -8,7 +8,7 @@ const Account = (props) => {
 
     // get values from context
     const alertContext = useContext(AlertContext);
-    const { alert, showAlert } = alertContext
+    const { alert, showAlert } = alertContext;
     const authContext = useContext(AuthContext);
     const { message, authenticated, newRegisterUser } = authContext;
 

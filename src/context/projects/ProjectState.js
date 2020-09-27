@@ -3,7 +3,7 @@ import React, { useReducer } from 'react';
 
 import ProjectContext from './ProjectContext';
 import ProjectReducer from './ProjectReducer';
-import { PROJECT_FORM, GET_PROJECTS, ADD_PROJECT, SHOW_ERROR, CURRENT_PROJECT, REMOVE_PROJECT } from '../../types';
+import { PROJECT_FORM, GET_PROJECTS, ADD_PROJECT, SHOW_ERROR, CURRENT_PROJECT, REMOVE_PROJECT, ERROR_PROJECT } from '../../types';
 import axiosClient from '../../config/axios';
 
 const ProjectState = props => {
@@ -18,7 +18,8 @@ const ProjectState = props => {
         projectList: [],
         newProject: false,
         errorForm: false,
-        project: null
+        project: null,
+        message: null
     }
 
 
@@ -34,14 +35,21 @@ const ProjectState = props => {
 
     //get Projects
     const getProjectList = async () => {
-        const res = await axiosClient.get('/api/projects');
         try {
+            const res = await axiosClient.get('/api/projects');
             dispatch({
                 type: GET_PROJECTS,
                 payload: res.data.projects
             })
         } catch (error) {
-            console.log(error);
+            const alert = {
+                msg: 'Hubo un error',
+                category: 'alert-error'
+            }
+           dispatch({
+               type:ERROR_PROJECT,
+               payload: alert
+           });
         }
     }
 
@@ -65,7 +73,14 @@ const ProjectState = props => {
                 payload: res.data.project
             })
         } catch (error) {
-            console.log(error);
+            const alert = {
+                msg: 'Hubo un error',
+                category: 'alert-error'
+            }
+           dispatch({
+               type:ERROR_PROJECT,
+               payload: alert
+           });
         }
     }
 
@@ -77,11 +92,23 @@ const ProjectState = props => {
     }
 
     //remove project
-    const removeProject = projectId => {
-        dispatch({
-            type: REMOVE_PROJECT,
-            payload: projectId
-        })
+    const removeProject = async projectId => {
+        try {
+            await axiosClient.delete(`/api/projects/${projectId}`);
+            dispatch({
+                type: REMOVE_PROJECT,
+                payload: projectId
+            });
+        } catch (error) {
+            const alert = {
+                msg: 'Hubo un error',
+                category: 'alert-error'
+            }
+           dispatch({
+               type:ERROR_PROJECT,
+               payload: alert
+           });
+        }
     }
 
     return (
@@ -91,6 +118,7 @@ const ProjectState = props => {
                 newProject: state.newProject,
                 errorForm: state.errorForm,
                 project: state.project,
+                message: state.message,
                 showForm,
                 getProjectList,
                 addProject,
