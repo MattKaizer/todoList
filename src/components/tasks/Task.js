@@ -31,7 +31,7 @@ const Task = ({task}) => {
 
     return ( 
         <li className="tarea sombra">
-            <p>{task.taskName}</p>
+            <p>{task.name}</p>
             <div className="estado">
                {task.taskState ?
                     (

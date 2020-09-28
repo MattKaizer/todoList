@@ -9,15 +9,15 @@ const FormTask = () => {
   const { project } = projectContext;
 
   const taskContext = useContext(TaskContext);
-  const { taskError, addTask, validateTask, getTasksList } = taskContext;
+  const { taskError, addTask, selectedTask, validateTask, getTasksList, updateTask, cleanTask } = taskContext;
 
   //Form state
   const [task, setTask] = useState({
-      taskName: ''
+      name: ''
   });
 
   //distructuring state form
-  const { taskName } = task;
+  const { name } = task;
 
   //IF NO PROJECT SELECTED
   if (!project) return null;
@@ -35,21 +35,26 @@ const FormTask = () => {
     e.preventDefault();
 
     //validate
-    if(taskName.trim() === '') {
+    if(name.trim() === '') {
         validateTask();
         return;
     }
     
-    task.projectId = currentProject.id;
-    task.taskState = false
-    addTask(task);
+    if (selectedTask === null) {
+      task.project = currentProject._id;
+      addTask(task);
+    } else {
+      updateTask(task);
+      // clean selectedTask state
+      cleanTask();
+    }
 
     //get current project taks's
     getTasksList(currentProject.id);
 
     //reset form
     setTask({
-        taskName: ''
+        name: ''
     })
 
   };
@@ -64,8 +69,8 @@ const FormTask = () => {
             type="text"
             className="input-text"
             placeholder="Nombre Tarea..."
-            name="taskName"
-            value={taskName}
+            name="name"
+            value={name}
             onChange={handleChange}
           />
         </div>

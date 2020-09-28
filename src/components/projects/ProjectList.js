@@ -21,9 +21,8 @@ const ProjectList = () => {
         }
         getProjectList();
     }, [message, showAlert, getProjectList])
-
+    
     if(projectList.length === 0) return <p>No hay proyectos actualmente</p>;
-
     return ( 
         <ul className="listado-proyectos">
         {/* category return like class toggle */}
