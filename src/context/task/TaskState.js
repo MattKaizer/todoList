@@ -2,7 +2,7 @@ import React, {useReducer} from 'react'
 
 import TaskContext from './TaskContext';
 import TaskReducer from './TaskReducer';
-import { PROJECT_TASKS, ADD_TASK, ERROR_TASK, DELETE_TASK, TASK_STATE, UPDATE_TASK, CURRENT_PROJECT, CURRENT_TASK, CLEAN_TASK } from '../../types'
+import { PROJECT_TASKS, ADD_TASK, ERROR_TASK, DELETE_TASK, UPDATE_TASK, CURRENT_TASK, CLEAN_TASK } from '../../types'
 import axiosClient from '../../config/axios';
 
 const TaskState = props => {
