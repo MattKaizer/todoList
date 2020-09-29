@@ -11,7 +11,7 @@ const Task = ({task}) => {
     const { project } = projectContext;
 
     const taskContext = useContext(TaskContext);
-    const { deleteTask, getTasksList, updateTask } = taskContext;
+    const { deleteTask, getTasksList, updateTask, setCurrentTask } = taskContext;
 
     const [currentProject] = project;
 
@@ -62,6 +62,7 @@ const Task = ({task}) => {
                 <button
                     type="button"
                     className="btn btn-primario"
+                    onClick={() => setCurrentTask(task) }
                 >
                     Editar
                 </button>

@@ -77,7 +77,7 @@ console.log(task)
     }
 }
 
-    // Extrae una tarea para edición
+    // get Task for edit
     const setCurrentTask = task => {
         dispatch({
             type: CURRENT_TASK,
