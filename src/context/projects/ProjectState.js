@@ -7,14 +7,8 @@ import { PROJECT_FORM, GET_PROJECTS, ADD_PROJECT, SHOW_ERROR, CURRENT_PROJECT, R
 import axiosClient from '../../config/axios';
 
 const ProjectState = props => {
-    // const projectList = [
-    //     {id: 1, projectName: 'Ecommerce'},
-    //     {id:2, projectName: 'Intranet'},
-    //     {id: 3, projectName: 'Web Design'},
-    //     {id: 4, projectName: 'Docker'}
-    // ]
+
     const initialState = {
-        //Provisional List
         projectList: [],
         newProject: false,
         errorForm: false,

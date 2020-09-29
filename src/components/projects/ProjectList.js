@@ -8,11 +8,11 @@ import AlertContext from '../../context/alerts/AlertContext';
 const ProjectList = () => {
 
     const alertContext = useContext(AlertContext);
-    const { message, alert, showAlert } = alertContext;
+    const { alert, showAlert } = alertContext;
 
     const projectContext = useContext(ProjectContext);
     //distructuring context
-    const { projectList, getProjectList } = projectContext;
+    const { message, projectList, getProjectList } = projectContext;
 
     useEffect(() => {
         // if error
@@ -20,7 +20,8 @@ const ProjectList = () => {
             showAlert(message.msg, message.category);
         }
         getProjectList();
-    }, [message, showAlert, getProjectList])
+        // eslint-disable-next-line
+    }, [message])
     
     if(projectList.length === 0) return <p>No hay proyectos actualmente</p>;
     return ( 

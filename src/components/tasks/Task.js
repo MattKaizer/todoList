@@ -11,29 +11,31 @@ const Task = ({task}) => {
     const { project } = projectContext;
 
     const taskContext = useContext(TaskContext);
-    const { deleteTask, getTasksList, changeTaskState } = taskContext;
+    const { deleteTask, getTasksList, updateTask } = taskContext;
+
+    const [currentProject] = project;
 
     //delete fn
     const deleteHanlder = id => {
-        deleteTask(id);
-        getTasksList(project[0].id);
+        deleteTask(id, currentProject._id);
+        getTasksList(currentProject._id);
     }
 
     //FN change task state
     const changeState = task => {
-        if (task.taskState) {
-            task.taskState = false
+        if (task.state) {
+            task.state = false
         } else {
-            task.taskState = true
+            task.state = true
         }
-        changeTaskState(task);
+        updateTask(task);
     }
 
     return ( 
         <li className="tarea sombra">
             <p>{task.name}</p>
             <div className="estado">
-               {task.taskState ?
+               {task.state ?
                     (
                         <button 
                         type="button"
@@ -66,7 +68,7 @@ const Task = ({task}) => {
                 <button
                     type="button"
                     className="btn btn-primario"
-                    onClick={() => deleteHanlder(task.id)}
+                    onClick={() => deleteHanlder(task._id)}
                 >
                     Eliminar
                 </button>

@@ -24,7 +24,7 @@ const TaskState = props => {
             const res = await axiosClient('/api/tasks', {params: {project}});
             dispatch({
                 type: PROJECT_TASKS,
-                payload: res.data.tasks
+                payload: res.data.tasks 
             })
         } catch (error) {
             console.log(error)
@@ -35,10 +35,9 @@ const TaskState = props => {
 const addTask = async task => {
     try {
         const res = await axiosClient.post('/api/tasks', task);
-        console.log(res);
         dispatch({
             type: ADD_TASK,
-            payload: task
+            payload: res.data.task
         });
     } catch (error) {
         console.log(error)
@@ -52,18 +51,23 @@ const validateTask = () => {
 }
 
 //Delete tasks by id
-const deleteTask = id => {
-    dispatch({
-        type: DELETE_TASK,
-        payload: id
-    })
+const deleteTask = async (id, project) => {
+    try {
+        await axiosClient.delete(`/api/tasks/${id}`, {params: {project}});
+        dispatch({
+            type: DELETE_TASK,
+            payload: id
+        });
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 const updateTask = async task => {
-
+console.log(task)
     try {
         const res = await axiosClient.put(`/api/tasks/${task._id}`, task);
-        
+        console.log(res)
         dispatch({
             type: UPDATE_TASK,
             payload: res.data.task
@@ -81,13 +85,13 @@ const updateTask = async task => {
         })
     }
 
-//change task state
-const changeTaskState = task => {
-    dispatch({
-        type: TASK_STATE,
-        payload: task
-    });
-}
+// //change task state
+// const changeTaskState = task => {
+//     dispatch({
+//         type: TASK_STATE,
+//         payload: task
+//     });
+// }
 
     const cleanTask = () => {
         dispatch({
@@ -107,8 +111,7 @@ const changeTaskState = task => {
                 deleteTask,
                 setCurrentTask,
                 cleanTask,
-                updateTask,
-                changeTaskState
+                updateTask
             }}
         >
             {props.children}

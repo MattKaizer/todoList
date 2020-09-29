@@ -50,7 +50,7 @@ const FormTask = () => {
     }
 
     //get current project taks's
-    getTasksList(currentProject.id);
+    getTasksList(currentProject._id);
 
     //reset form
     setTask({

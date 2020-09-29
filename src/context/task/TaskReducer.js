@@ -22,19 +22,18 @@ export default (state, action) => {
             case DELETE_TASK:
                 return {
                     ...state,
-                    taskPerProject: state.taskPerProject.filter( task => task.id !== action.payload)
+                    taskPerProject: state.taskPerProject.filter( task => task._id !== action.payload)
             }
+            case UPDATE_TASK:
+                return {
+                    ...state,
+                    taskPerProject: state.taskPerProject.map(task => task._id === action.payload._id ? action.payload : task )
+                }
             // case UPDATE_TASK:
             //     return {
             //         ...state,
-            //         taskPerProject: state.taskPerProject.map(task => task._id === action.payload._id ? action.payload : task )
-            //     }
-            case UPDATE_TASK:
-            case TASK_STATE:
-                return {
-                    ...state,
-                    taskPerProject: state.taskPerProject.map(task => task.id === action.payload.id ? action.payload : task)
-            }
+            //         taskPerProject: state.taskPerProject.map(task => task._id === action.payload._id ? action.payload : task)
+            // }
             case CURRENT_TASK:
                 return {
                     ...state,
