@@ -1,6 +1,6 @@
 # MERN practice - TODO App
 
-[link-netlify-preview](nostalgic-bhaskara-84c560.netlify.app)
+[link-netlify-preview](https://nostalgic-bhaskara-84c560.netlify.app)
 
 ### MERN App
 
