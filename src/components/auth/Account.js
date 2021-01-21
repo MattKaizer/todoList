@@ -77,7 +77,7 @@ const Account = (props) => {
             {/* category return like class toggle */}
             {alert ? (<div className={`alert ${alert.category}`}>{alert.msg}</div>) : null}
             <div className="container-form shadow-dark">
-                <h1>Iniciar Sesión</h1>
+                <h1>Regístrate</h1>
                 <form
                     onSubmit={onSubmit}
                 >
