@@ -1,3 +1,25 @@
+# MERN practice - TODO App
+
+[link-netlify-preview](https://nostalgic-bhaskara-84c560.netlify.app)
+
+### MERN App
+
+## Task Description
+
+This is a simple TODO app build with MERN. This is just a practice for using react hooks, with api calls throught Promises and axios to an Express backend app deployed on heroku. [ Link-to-backend ](https://github.com/MattKaizer/todoList-server)
+
+#### Enum Tech used
+
+* HTML5
+* CSS3
+* JS
+* Axios
+* ReacJS 
+    * React Hooks
+    * Api Context/Reducer
+
+<hr>
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
